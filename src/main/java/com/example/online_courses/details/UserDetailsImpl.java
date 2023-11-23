@@ -1,5 +1,5 @@
 package com.example.online_courses.details;
-
+/*
 import com.example.online_courses.models.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -53,3 +53,5 @@ public class UserDetailsImpl implements UserDetails {
                 authorities);
     }
 }
+
+ */

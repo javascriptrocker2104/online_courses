@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.UUID;
 
@@ -19,8 +20,21 @@ public class Role {
     @Id
     @GeneratedValue
     private UUID id;
-    @Enumerated(EnumType.STRING)
-    private UserRole name;
+    //@Enumerated(EnumType.STRING)
+    private String name;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "roles_privileges",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "privilege_id"))
+    private Collection<Privilege> privileges;
+
+
+
+    public Role(String name) {
+        this.name = name;
+    }
+
 
     //@Transient
     //@ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)

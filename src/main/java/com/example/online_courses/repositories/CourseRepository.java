@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface CourseRepository extends JpaRepository<Course, UUID> {
-    @Query(value = "SELECT cs FROM Course cs WHERE cs.block = true")
+    @Query(value = "SELECT cs FROM Course cs LEFT JOIN Content co ON cs.course_id = co.content_id WHERE co.block = false OR co.block IS NULL")
     List<Course> getAll();
     Optional<Course> findByName(String name);
     Boolean existsByName(String name);

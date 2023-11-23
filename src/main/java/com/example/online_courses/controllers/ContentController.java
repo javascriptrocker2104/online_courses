@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@AutoConfiguration
 @RestController
 @RequiredArgsConstructor
 public class ContentController {
@@ -36,13 +35,13 @@ public class ContentController {
     public ResponseEntity<List<Content>> getAllContents() {
         return ResponseEntity.ok(contentService.getAllContents());
     }
-    @PostMapping("/Content")
+    @PostMapping("/content")
     @PreAuthorize("hasAuthority('modification')")
     public ResponseEntity<ContentDto> createContent(@RequestBody CreateContentRequest content) throws ContentAlreadyExistException {
         return ResponseEntity.ok(contentService.createContent(content));
     }
 
-    @DeleteMapping("/Content")
+    @DeleteMapping("/content")
     @PreAuthorize("hasAuthority('modification')")
     public ResponseEntity deleteContent(@RequestBody UUID content_id) {
         contentService.deleteContent(content_id);

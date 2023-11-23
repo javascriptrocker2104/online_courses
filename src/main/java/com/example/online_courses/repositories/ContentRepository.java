@@ -11,10 +11,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface ContentRepository extends JpaRepository<Content, UUID> {
-    @Query(value = "SELECT ct FROM Content ct WHERE ct.block = true")
+    @Query(value = "SELECT ct FROM Content ct WHERE ct.block = false")
     Optional<Content> findById(UUID content_id);
     boolean existsById(UUID content_id);
 
-    @Query(value = "SELECT ct FROM Content ct WHERE ct.block = true")
+    @Query(value = "SELECT ct FROM Content ct WHERE ct.block = false")
     List<Content> getAll();
+
 }
