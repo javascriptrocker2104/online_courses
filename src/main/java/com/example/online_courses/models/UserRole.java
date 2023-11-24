@@ -1,4 +1,5 @@
 package com.example.online_courses.models;
+/*
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,3 +23,6 @@ public enum UserRole {
                 .collect(toSet());
     }
 }
+
+
+ */

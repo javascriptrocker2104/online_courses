@@ -20,7 +20,6 @@ public class Role {
     @Id
     @GeneratedValue
     private UUID id;
-    //@Enumerated(EnumType.STRING)
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER)

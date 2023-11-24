@@ -36,13 +36,9 @@ public class SecurityConfig {
         http
                 .csrf((csrf) -> csrf
                         .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
-                .authorizeHttpRequests((authz) -> { authz
-                        .requestMatchers(HttpMethod.GET, "/roleHierarchy")
-                        .hasRole("TEACHER")
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        //.antMatchers("/","registration").permitALl()
-                        .anyRequest().permitAll();//authenticated();
-                })
+                .authorizeHttpRequests((authz) -> authz
+                        .anyRequest().authenticated()
+                )
                 .formLogin(form -> form
                         .loginPage("/login").permitAll()
                         .defaultSuccessUrl("/", true))
@@ -68,19 +64,5 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder(12);
     }
 
-    @Bean
-    public RoleHierarchy roleHierarchy() {
-        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-        String hierarchy = "ROLE_ADMIN > ROLE_TEACHER \n ROLE_TEACHER > ROLE_USER";
-        roleHierarchy.setHierarchy(hierarchy);
-        return roleHierarchy;
-    }
-
-    @Bean
-    public SecurityExpressionHandler<FilterInvocation> customWebSecurityExpressionHandler() {
-        DefaultWebSecurityExpressionHandler expressionHandler = new DefaultWebSecurityExpressionHandler();
-        expressionHandler.setRoleHierarchy(roleHierarchy());
-        return expressionHandler;
-    }
 
 }

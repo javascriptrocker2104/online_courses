@@ -31,7 +31,7 @@ public class ContentController {
         return ResponseEntity.ok(contentService.getContentById(id));
     }
     @GetMapping("/content/all")
-    @PreAuthorize("hasAuthority('read')")
+    //@PreAuthorize("hasAuthority('read')")
     public ResponseEntity<List<Content>> getAllContents() {
         return ResponseEntity.ok(contentService.getAllContents());
     }

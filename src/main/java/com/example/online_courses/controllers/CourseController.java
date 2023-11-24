@@ -43,13 +43,13 @@ public class CourseController {
         }
         */
     @GetMapping("/course/all")
-    @PreAuthorize("hasAuthority('read')")
+    //@PreAuthorize("hasAuthority('read')")
     public ResponseEntity<List<Course>> getAllCourses() {
         return ResponseEntity.ok(courseService.getAllCourses());
     }
 
     @GetMapping("/course/find/{name}")
-    @PreAuthorize("hasAuthority('read')")
+    //@PreAuthorize("hasAuthority('read')")
     public ResponseEntity<CourseDto> getCourseByName(@PathVariable String name) throws CourseNotFoundException {
         return ResponseEntity.ok(courseService.getCourseByName(name));
     }

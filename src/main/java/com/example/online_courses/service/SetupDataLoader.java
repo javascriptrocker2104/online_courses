@@ -44,6 +44,7 @@ public class SetupDataLoader implements
 
         List<Privilege> adminPrivileges = new ArrayList<>(Arrays.asList(readPrivilege, writePrivilege));
         List<Privilege> userPrivileges = new ArrayList<>(Arrays.asList(readPrivilege));
+
         Role adminRole = createRoleIfNotFound("ROLE_ADMIN", adminPrivileges);
         createRoleIfNotFound("ROLE_USER", userPrivileges);
         createRoleIfNotFound("ROLE_TEACHER", adminPrivileges);

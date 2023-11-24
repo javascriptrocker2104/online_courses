@@ -1,5 +1,5 @@
 package com.example.online_courses.models;
-
+/*
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,3 +12,6 @@ public enum Permission {
 
     private final String permission;
 }
+
+
+ */
