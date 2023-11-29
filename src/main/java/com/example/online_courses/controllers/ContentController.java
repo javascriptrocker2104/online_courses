@@ -26,23 +26,23 @@ public class ContentController {
     private ContentRepository contentRepository;
 
     @GetMapping("/content/{id}")
-    @PreAuthorize("hasAuthority('read')")
+    @PreAuthorize("hasAuthority('READ_PRIVILEGE')")
     public ResponseEntity<ContentDto> getContentById(@PathVariable UUID id) throws ContentNotFoundException {
         return ResponseEntity.ok(contentService.getContentById(id));
     }
     @GetMapping("/content/all")
-    //@PreAuthorize("hasAuthority('read')")
+    //@PreAuthorize("hasAuthority('READ_PRIVILEGE')")
     public ResponseEntity<List<Content>> getAllContents() {
         return ResponseEntity.ok(contentService.getAllContents());
     }
     @PostMapping("/content")
-    @PreAuthorize("hasAuthority('modification')")
+    @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
     public ResponseEntity<ContentDto> createContent(@RequestBody CreateContentRequest content) throws ContentAlreadyExistException {
         return ResponseEntity.ok(contentService.createContent(content));
     }
 
     @DeleteMapping("/content")
-    @PreAuthorize("hasAuthority('modification')")
+    @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
     public ResponseEntity deleteContent(@RequestBody UUID content_id) {
         contentService.deleteContent(content_id);
         return ResponseEntity.ok()
