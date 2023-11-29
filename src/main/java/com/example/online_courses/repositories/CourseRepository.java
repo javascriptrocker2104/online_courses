@@ -12,5 +12,6 @@ public interface CourseRepository extends JpaRepository<Course, UUID> {
     @Query(value = "SELECT cs FROM Course cs WHERE cs.block=false")
     List<Course> getAll();
     Optional<Course> findByName(String name);
+    Optional<Course> findById(UUID id);
     Boolean existsByName(String name);
 }

@@ -4,6 +4,7 @@ import com.example.online_courses.dto.CourseDto;
 import com.example.online_courses.dto.CreateCourseRequest;
 import com.example.online_courses.exceptions.CourseAlreadyExistException;
 import com.example.online_courses.exceptions.CourseNotFoundException;
+import com.example.online_courses.exceptions.CourseNotFoundExceptionByID;
 import com.example.online_courses.models.Course;
 import com.example.online_courses.models.User;
 import com.example.online_courses.repositories.CourseRepository;
@@ -82,5 +83,12 @@ public class CourseServiceImpl implements CourseService {
         userRepository.save(user);
     }
 
+    @Override
+    public CourseDto getCourseById(UUID id) throws CourseNotFoundExceptionByID {
+        return courseRepository.findById(id).stream()
+                .map(CourseMappingUtil::mapToCourseDto)
+                .findFirst()
+                .orElseThrow(() -> new CourseNotFoundExceptionByID(id));
+    }
 }
 

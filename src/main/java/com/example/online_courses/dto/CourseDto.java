@@ -1,6 +1,8 @@
 package com.example.online_courses.dto;
 import lombok.Data;
 import java.time.LocalDateTime;
+import java.util.UUID;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class CourseDto {
+    private UUID id;
     private String name;
     private String description;
     private LocalDateTime start_time;
