@@ -3,18 +3,24 @@ package com.example.online_courses.controllers;
 
 import com.example.online_courses.dto.CourseDto;
 import com.example.online_courses.dto.CreateCourseRequest;
+import com.example.online_courses.dto.UserData;
 import com.example.online_courses.exceptions.CourseAlreadyExistException;
 import com.example.online_courses.exceptions.CourseNotFoundException;
+import com.example.online_courses.exceptions.UserAlreadyExistException;
 import com.example.online_courses.models.Course;
 import com.example.online_courses.service.interfaces.CourseService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import com.example.online_courses.repositories.CourseRepository;
 import static java.lang.String.format;
-
+import com.example.online_courses.dto.CreateCourseRequest;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,25 +29,46 @@ public class CourseController {
 
     @Autowired
     private CourseRepository courseRepository;
-    private final CourseService courseService;
+    @Autowired
+    private CourseService courseService;
 
     public CourseController(CourseService courseService) {
         this.courseService = courseService;
     }
 
+    // Выводит html добавление курса
+    @GetMapping("/course/add")
+    public String viewCourseAdd(Model model) {
+        model.addAttribute("courseRequest", new CreateCourseRequest());
+        return "course-add";
+    }
+    // Сохраняет введенные данные в базу данных
     /*
-        @GetMapping("/course/add")
-        public String courseAdd(Model model) {
-            return "course-add";
+    @PostMapping("/course/add")
+    public String coursePostAdd(@RequestParam String name, @RequestParam String description, @RequestParam LocalDateTime start_time, @RequestParam LocalDateTime end_time) {
+        Course course = new Course(name, description, start_time, end_time);
+        courseRepository.save(course);
+        return "redirect:/";
         }
 
-        @PostMapping("/course/add")
-        public String coursePostAdd(@RequestBody String name, @RequestBody String description, @RequestBody LocalDateTime start_time, @RequestBody LocalDateTime end_time, Model model) {
-            Course course = new Course(name, description, start_time, end_time);
-            courseRepository.save(course);
-            return "redirect:/course";
+     */
+    @PostMapping("/course/add")
+    public String courseAdd(final @Valid CreateCourseRequest courseRequest, final BindingResult bindingResult, final Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("courseRequest", courseRequest);
+            return "course-add";
         }
-        */
+        try {
+            courseService.createCourse(courseRequest);
+        }catch (CourseAlreadyExistException e){
+            bindingResult.rejectValue("name", "courseRequest.name","Курс с таким именем уже существует.");
+            model.addAttribute("courseRequest", courseRequest);
+            return "course-add";
+        }
+        return "redirect:/";
+    }
+
+
     @GetMapping("/course/all")
     //@PreAuthorize("hasAuthority('read')")
     public ResponseEntity<List<CourseDto>> getAllCourses() {
@@ -54,19 +81,22 @@ public class CourseController {
         return ResponseEntity.ok(courseService.getCourseByName(name));
     }
 
-    @PostMapping("/course")
+    /*
+    @PostMapping("/admin/course")
     @PreAuthorize("hasAuthority('modification')")
     public ResponseEntity<CourseDto> createCourse(@RequestBody CreateCourseRequest course) throws CourseAlreadyExistException {
         return ResponseEntity.ok(courseService.createCourse(course));
     }
 
-    @PatchMapping("/course")
+     */
+
+    @PatchMapping("/admin/course")
     @PreAuthorize("hasAuthority('modification')")
     public ResponseEntity<CourseDto> updateCourse(@RequestBody Course course) {
         return ResponseEntity.ok(courseService.updateCourse(course));
     }
 
-    @DeleteMapping("/course")
+    @DeleteMapping("/admin/course")
     @PreAuthorize("hasAuthority('modification')")
     public ResponseEntity deleteCourse(@RequestBody String course_id) {
         courseService.deleteCourse(course_id);
@@ -75,7 +105,7 @@ public class CourseController {
     }
 
 
-    @RequestMapping(value = "/course/{id}/hide", method = RequestMethod.PUT)
+    @RequestMapping(value = "/admin/course/{id}/hide", method = RequestMethod.PUT)
     public ResponseEntity<String> hideCourse(@PathVariable("id") UUID id) {
 
         Course course = courseRepository.findById(id).orElse(null);

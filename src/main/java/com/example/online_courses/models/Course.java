@@ -37,6 +37,7 @@ public class Course {
         this.description = description;
         this.start_time = startTime;
         this.end_time = endTime;
+        this.block = false;
     }
 
     //@ManyToMany(mappedBy="courses", fetch = FetchType.EAGER)
