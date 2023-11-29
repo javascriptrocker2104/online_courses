@@ -70,20 +70,20 @@ public class CourseController {
 
 
     @GetMapping("/course/all")
-    //@PreAuthorize("hasAuthority('read')")
+    //@PreAuthorize("hasAuthority('READ_PRIVILEGE')")
     public ResponseEntity<List<CourseDto>> getAllCourses() {
         return ResponseEntity.ok(courseService.getAllCourses());
     }
 
     @GetMapping("/course/find/{name}")
-    //@PreAuthorize("hasAuthority('read')")
+    //@PreAuthorize("hasAuthority('READ_PRIVILEGE')")
     public ResponseEntity<CourseDto> getCourseByName(@PathVariable String name) throws CourseNotFoundException {
         return ResponseEntity.ok(courseService.getCourseByName(name));
     }
 
     /*
     @PostMapping("/admin/course")
-    @PreAuthorize("hasAuthority('modification')")
+    @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
     public ResponseEntity<CourseDto> createCourse(@RequestBody CreateCourseRequest course) throws CourseAlreadyExistException {
         return ResponseEntity.ok(courseService.createCourse(course));
     }
@@ -91,13 +91,13 @@ public class CourseController {
      */
 
     @PatchMapping("/admin/course")
-    @PreAuthorize("hasAuthority('modification')")
+    @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
     public ResponseEntity<CourseDto> updateCourse(@RequestBody Course course) {
         return ResponseEntity.ok(courseService.updateCourse(course));
     }
 
     @DeleteMapping("/admin/course")
-    @PreAuthorize("hasAuthority('modification')")
+    @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
     public ResponseEntity deleteCourse(@RequestBody String course_id) {
         courseService.deleteCourse(course_id);
         return ResponseEntity.ok()
