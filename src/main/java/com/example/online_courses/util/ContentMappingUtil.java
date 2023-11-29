@@ -15,7 +15,7 @@ public class ContentMappingUtil {
                 .name(content.getName())
                 .info(content.getInfo())
                 .type(content.getType())
-                .requestTime(LocalDateTime.now())
+                .block(content.isBlock())
                 .build();
     }
 
@@ -24,6 +24,7 @@ public class ContentMappingUtil {
                 .name(request.getName())
                 .info(request.getInfo())
                 .type(request.getType())
+                .block(request.isBlock())
                 .build();
     }
 }

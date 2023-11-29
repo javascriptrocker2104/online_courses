@@ -15,7 +15,7 @@ public class CourseDto {
     private String description;
     private LocalDateTime start_time;
     private LocalDateTime end_time;
-    private LocalDateTime requestTime;
+    //private LocalDateTime requestTime;
     private boolean block;
 }
 

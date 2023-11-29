@@ -22,6 +22,7 @@ import static com.example.online_courses.util.CourseMappingUtil.mapToCourseFromR
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -50,9 +51,18 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getAllCourses() {
-        return courseRepository.getAll();
+    public List<CourseDto> getAllCourses() {
+        return courseRepository.getAll().stream()
+                .map(course -> CourseDto.builder()
+                        .name(course.getName())
+                        .description(course.getDescription())
+                        .start_time(course.getStart_time())
+                        .end_time(course.getEnd_time())
+                        .block(course.isBlock())
+                        .build())
+                .collect(Collectors.toList());
     }
+
 
     @Override
     @Transactional

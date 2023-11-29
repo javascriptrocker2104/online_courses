@@ -44,7 +44,7 @@ public class CourseController {
         */
     @GetMapping("/course/all")
     //@PreAuthorize("hasAuthority('read')")
-    public ResponseEntity<List<Course>> getAllCourses() {
+    public ResponseEntity<List<CourseDto>> getAllCourses() {
         return ResponseEntity.ok(courseService.getAllCourses());
     }
 

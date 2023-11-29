@@ -13,7 +13,7 @@ public interface CourseService {
 
     CourseDto createCourse(CreateCourseRequest course) throws CourseAlreadyExistException;
 
-    List<Course> getAllCourses();
+    List<CourseDto> getAllCourses();
 
     CourseDto updateCourse(Course course);
 

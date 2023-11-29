@@ -18,6 +18,6 @@ public class ContentDto {
     private String name;
     private String info;
     private String type;
-    private LocalDateTime requestTime;
+    //private LocalDateTime requestTime;
     private boolean block;
 }

@@ -16,7 +16,8 @@ public class CourseMappingUtil {
                 .description(course.getDescription())
                 .start_time(course.getStart_time())
                 .end_time(course.getEnd_time())
-                .requestTime(LocalDateTime.now())
+                .block(course.isBlock())
+                //.requestTime(LocalDateTime.now())
                 .build();
     }
 
@@ -26,6 +27,7 @@ public class CourseMappingUtil {
                 .description(request.getDescription())
                 .start_time(request.getStart_time())
                 .end_time(request.getEnd_time())
+                .block(request.isBlock())
                 .build();
     }
 }
