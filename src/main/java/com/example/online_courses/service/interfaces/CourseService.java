@@ -7,6 +7,7 @@ import com.example.online_courses.exceptions.CourseNotFoundException;
 import com.example.online_courses.exceptions.CourseNotFoundExceptionByID;
 import com.example.online_courses.models.Course;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface CourseService {
@@ -23,5 +24,6 @@ public interface CourseService {
     void assignUserToCourse(UUID id, UUID course_id);
 
     CourseDto getCourseById(UUID id) throws CourseNotFoundExceptionByID;
+    Optional<Course> searchCourses(String query);
 }
 

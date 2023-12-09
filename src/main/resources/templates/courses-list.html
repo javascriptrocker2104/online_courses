@@ -8,6 +8,10 @@
 </head>
 <body class="flex flex-col h-screen justify-between">
 <header th:insert="~{blocks/header :: header}"></header>
+<form action="/search" method="GET">
+    <input type="text" name="query" placeholder="Поиск курсов...">
+    <button type="submit">Искать</button>
+</form>
 <div class="grid grid-cols-3">
     <div th:each="course, iterStat : ${courses}" class="course-container grid-item">
         <h2 th:text="${course.name}"></h2>
@@ -15,7 +19,7 @@
         <p th:text="${course.start_time}"></p>
         <p th:text="${course.end_time}"></p>
         <!-- <p th:text="${course.block ? 'Да' : 'Нет'}"></p> -->
-        <a th:href="@{/courseDetails/{id}(id=${course.id})}" class="btn-primary">Подробнее</a>
+        <a th:href="@{/courseDetails/{name}(name=${course.name})}" class="btn-primary">Подробнее</a>
     </div>
 </div>
 <footer th:insert="~{blocks/footer :: footer}"></footer>
@@ -58,6 +62,35 @@
         transition: background-color 0.3s ease;
     }
     .btn-primary:hover {
+        background-color: #0056b3;
+    }
+
+
+
+    form {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px; /* Уменьшаем отступ сверху */
+    }
+
+    input {
+        width: 500px; /* Устанавливаем фиксированную ширину */
+        padding: 8px; /* Уменьшаем внутренний отступ */
+        margin-right: 8px;
+        box-sizing: border-box;
+    }
+
+    button {
+        padding: 8px 16px; /* Уменьшаем внутренний отступ */
+        background-color: #007BFF;
+        color: #0056b3;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
         background-color: #0056b3;
     }
 </style>

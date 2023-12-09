@@ -1,11 +1,23 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <title>BYB course</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Details</title>
 </head>
 <body>
-<p th:text="|Hello, ${course}!|" />
+<h1>Course Details</h1>
+
+<!-- Проверяем, есть ли результаты поиска -->
+<div th:if="${courses.isPresent()}">
+    <!-- Выводим информацию о курсе -->
+    <h2 th:text="${courses.get().name}"></h2>
+    <p th:text="${courses.get().description}"></p>
+</div>
+<div th:if="${courses.isPresent}">
+</div>
+<div th:unless="${courses.isPresent}">
+    <p>No results found.</p>
+</div>
 </body>
 </html>
-

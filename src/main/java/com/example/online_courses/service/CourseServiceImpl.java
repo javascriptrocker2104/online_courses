@@ -22,6 +22,7 @@ import static com.example.online_courses.util.CourseMappingUtil.mapToCourseFromR
 
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -89,6 +90,10 @@ public class CourseServiceImpl implements CourseService {
                 .map(CourseMappingUtil::mapToCourseDto)
                 .findFirst()
                 .orElseThrow(() -> new CourseNotFoundExceptionByID(id));
+    }
+
+    public Optional<Course> searchCourses(String query) {
+        return courseRepository.findByName(query);
     }
 }
 
