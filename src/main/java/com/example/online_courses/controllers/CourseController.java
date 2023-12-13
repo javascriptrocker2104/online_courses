@@ -90,14 +90,25 @@ public class CourseController {
 
      */
 
-    @PatchMapping("/admin/course")
-    @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
-    public ResponseEntity<CourseDto> updateCourse(@RequestBody Course course) {
-        return ResponseEntity.ok(courseService.updateCourse(course));
+    // Нужно сначала запросить имя курса, потом вывести html как курс адд, только потом сохранить...
+    /*
+    @PatchMapping("/admin/course/change")
+    public String courseChange(final @Valid CreateCourseRequest courseRequest, final BindingResult bindingResult, final Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("courseRequest", courseRequest);
+            return "course-add";
+        }
+        courseService.updateCourse(courseRequest);
+        return "redirect:/";
     }
+    */
+    //@PatchMapping("/admin/course/change")
+    //public ResponseEntity<CourseDto> updateCourse(@RequestBody Course course) {
+    //    return ResponseEntity.ok(courseService.updateCourse(course));
+    //}
 
-    @DeleteMapping("/admin/course")
-    @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
+    @DeleteMapping("/deletecourse")
+    //@PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
     public ResponseEntity deleteCourse(@RequestBody String course_id) {
         courseService.deleteCourse(course_id);
         return ResponseEntity.ok()

@@ -54,6 +54,7 @@ public class AuthController {
         return "redirect:/login";
     }
 
+    @PostMapping
 
     @RequestMapping(value = "/User/{id}/hide", method = RequestMethod.PUT)
     public ResponseEntity<String> hideUser(@PathVariable("id") UUID id) {
@@ -69,6 +70,7 @@ public class AuthController {
 
         return ResponseEntity.ok().build();
     }
+
 
 
 

@@ -57,4 +57,10 @@ public class MainController {
         model.addAttribute("courses", searchResults);
         return "course-details";
     }
+
+    @GetMapping("/admin")
+    public String AdminPage() {
+        return "admin-main";
+    }
+
 }
