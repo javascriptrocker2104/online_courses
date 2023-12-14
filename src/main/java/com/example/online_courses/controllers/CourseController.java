@@ -51,7 +51,7 @@ public class CourseController {
         return "redirect:/";
         }
 
-     */
+
     @PostMapping("/course/add")
     public String courseAdd(final @Valid CreateCourseRequest courseRequest, final BindingResult bindingResult, final Model model){
         if(bindingResult.hasErrors()){
@@ -67,7 +67,18 @@ public class CourseController {
         }
         return "redirect:/";
     }
+*/
+    @PostMapping("/course/add")
+    @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
+    public String courseAdd(@RequestParam(name="name", required=false) String name,
+                            @RequestParam(name="description", required=false) String description,
+                            @RequestParam(name="start_time", required=false) LocalDateTime start_time,
+                            @RequestParam(name="end_time", required=false)LocalDateTime end_time){
 
+        Course course = new Course(name, description,start_time,end_time);
+        courseRepository.save(course);
+        return "redirect:/";
+    }
 
     @GetMapping("/course/all")
     //@PreAuthorize("hasAuthority('READ_PRIVILEGE')")

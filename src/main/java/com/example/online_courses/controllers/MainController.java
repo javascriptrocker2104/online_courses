@@ -6,6 +6,7 @@ import com.example.online_courses.exceptions.CourseNotFoundExceptionByID;
 import com.example.online_courses.models.Course;
 import com.example.online_courses.service.interfaces.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,6 +60,7 @@ public class MainController {
     }
 
     @GetMapping("/admin")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String AdminPage() {
         return "admin-main";
     }
