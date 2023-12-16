@@ -2,6 +2,7 @@ package com.example.online_courses.service.interfaces;
 
 import com.example.online_courses.dto.UserData;
 import com.example.online_courses.exceptions.UserAlreadyExistException;
+import com.example.online_courses.models.User;
 
 public interface UserService {
 

@@ -1,6 +1,7 @@
 package com.example.online_courses.controllers;
 
 import com.example.online_courses.dto.UserData;
+import com.example.online_courses.exceptions.PasswordIsWrong;
 import com.example.online_courses.exceptions.UserAlreadyExistException;
 import com.example.online_courses.models.Content;
 import com.example.online_courses.models.User;
@@ -12,6 +13,7 @@ import com.example.online_courses.service.interfaces.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,11 +44,11 @@ public class AuthController {
     public ResponseEntity<?> signup(@Valid User user,
                                     @RequestParam(name="g-recaptcha-response") String recaptchaResponse,
                                     HttpServletRequest request
-    ){
+    ) {
 
         String ip = request.getRemoteAddr();
         String captchaVerifyMessage =
-                recaptchaService.verifyRecaptcha(ip, recaptchaResponse);
+             recaptchaService.verifyRecaptcha(ip, recaptchaResponse);
 
         if ( StringUtils.isNotEmpty(captchaVerifyMessage)) {
             Map<String, Object> response = new HashMap<>();
@@ -80,8 +82,6 @@ public class AuthController {
         return "redirect:/login";
     }
 
-
-
     @RequestMapping(value = "/User/{id}/hide", method = RequestMethod.PUT)
     public ResponseEntity<String> hideUser(@PathVariable("id") UUID id) {
 
@@ -96,32 +96,4 @@ public class AuthController {
 
         return ResponseEntity.ok().build();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*
-    @GetMapping("/registration")
-    public String userAdd(Model model) {
-        return "registration";
-    }
-
-    @PostMapping("/registration")
-    public String userPostAdd(@RequestBody String name, @RequestBody String email, @RequestBody String password, Model model) {
-        User user = new User(name, email, password);
-        userRepository.save(user);
-        return "redirect:/login";
-    }
-*/
 }

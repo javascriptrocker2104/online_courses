@@ -86,6 +86,7 @@ public class SetupDataLoader implements
             user.setPassword(passwordEncoder.encode(password));
             user.setEmail(email);
             user.setBlock(false);
+            user.setAttempts(0);
         }
         user.setRoles(roles);
         user = userRepository.save(user);

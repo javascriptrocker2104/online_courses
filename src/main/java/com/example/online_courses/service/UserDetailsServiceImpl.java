@@ -1,5 +1,6 @@
 package com.example.online_courses.service;
 
+import com.example.online_courses.config.CustomAuthenticationFailureHandler;
 import com.example.online_courses.models.Privilege;
 import com.example.online_courses.models.Role;
 import com.example.online_courses.models.User;
@@ -24,8 +25,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private CustomAuthenticationFailureHandler handler;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+
+        handler.setEmail(email);
 
         User user = userRepository.findByEmail(email);
         if (user == null) {
@@ -67,4 +73,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         return authorities;
     }
+
+
 }

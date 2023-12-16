@@ -20,7 +20,4 @@ public class UserData implements Serializable {
 
     @NotEmpty(message = "Пароль не может быть пустым")
     private String password;
-
-
-
 }

@@ -6,6 +6,7 @@ import com.example.online_courses.models.User;
 import com.example.online_courses.repositories.RoleRepository;
 import com.example.online_courses.repositories.UserRepository;
 import com.example.online_courses.service.interfaces.UserService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -34,6 +35,7 @@ public class DefaultUserService implements UserService {
             encodePassword(userEntity, user);
             userEntity.setBlock(false);
             userEntity.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
+            userEntity.setAttempts(0);
             userRepository.save(userEntity);
         }
     }
@@ -47,6 +49,4 @@ public class DefaultUserService implements UserService {
     private void encodePassword( User userEntity, UserData user){
         userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
     }
-
-
 }

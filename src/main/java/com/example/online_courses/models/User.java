@@ -25,7 +25,7 @@ public class User {
     private String email;
     private String password;
     private boolean block;
-
+    private Integer attempts;
 
     public User(String name, String email, String password) {
         this.name = name;
@@ -37,12 +37,6 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
-
-
-
-
-
-
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Course> courses;
