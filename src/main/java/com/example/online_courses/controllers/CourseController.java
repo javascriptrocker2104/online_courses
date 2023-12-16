@@ -69,7 +69,7 @@ public class CourseController {
     }
 */
     @PostMapping("/course/add")
-    @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
+
     public String courseAdd(@RequestParam(name="name", required=false) String name,
                             @RequestParam(name="description", required=false) String description,
                             @RequestParam(name="start_time", required=false) LocalDateTime start_time,
@@ -91,6 +91,8 @@ public class CourseController {
     public ResponseEntity<CourseDto> getCourseByName(@PathVariable String name) throws CourseNotFoundException {
         return ResponseEntity.ok(courseService.getCourseByName(name));
     }
+
+
 
     /*
     @PostMapping("/admin/course")
@@ -127,10 +129,10 @@ public class CourseController {
     }
 
 
-    @RequestMapping(value = "/admin/course/{id}/hide", method = RequestMethod.PUT)
-    public ResponseEntity<String> hideCourse(@PathVariable("id") UUID id) {
+    @RequestMapping(value = "/admin/blockcourse", method = RequestMethod.PUT)
+    public ResponseEntity<String> hideCourse(@PathVariable("name") String name) {
 
-        Course course = courseRepository.findById(id).orElse(null);
+        Course course = courseRepository.findByName(name).orElse(null);
 
         if (course == null) {
             return ResponseEntity.notFound().build();
@@ -142,6 +144,10 @@ public class CourseController {
         return ResponseEntity.ok().build();
     }
 
+    @GetMapping("/admin/blockcourse")
+    public String viewCourseBlock() {
+        return "blockcourse";
+    }
 
 
 
