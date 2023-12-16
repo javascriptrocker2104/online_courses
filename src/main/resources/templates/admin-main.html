@@ -2,6 +2,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <title>Панель админа</title>
     <script>
@@ -9,22 +12,29 @@
             window.location.href = "course/add";
         }
     </script>
+
+    <script>
+        function redirectToCourseBlock() {
+            window.location.href = "admin/blockcourse";
+        }
+    </script>
+
 </head>
 <body>
-<header th:insert="~{blocks/header :: header}"></header>
+
 
 <div class="container">
     <div class="left-container">
         <h2>Пользователи</h2>
         <p>Зарегистрировано пользователей:</p>
         <p>БЛОКИРОВКА</p>
-        <form action="/blockuser" method="POST">
+        <form action="/admin/blockuser" method="POST">
             <label for="user_id_b">Введите ID:</label>
             <input type="text" id="user_id_b" name="user_id">
             <button type="submit">Заблокировать</button>
         </form>
         <p>УДАЛЕНИЕ</p>
-        <form action="/deleteuser" method="POST">
+        <form action="/admin/deleteuser" method="POST">
             <label for="user_id_d">Введите ID:</label>
             <input type="text" id="user_id_d" name="user_id">
             <button type="submit">Удалить</button>
@@ -41,13 +51,10 @@
         </form> -->
 
         <p>БЛОКИРОВКА</p>
-        <form action="/blockcourse" method="POST">
-            <label for="course_id_b">Введите ID:</label>
-            <input type="text" id="course_id_b" name="course_id">
-            <button type="submit">Заблокировать</button>
-        </form>
+        <button onclick="redirectToCourseBlock()">Заблокировать</button>
+
         <p>УДАЛЕНИЕ</p>
-        <form th:action="@{/deletecourse}" method="POST">
+        <form th:action="@{/admin/deletecourse}" method="POST">
             <label for="course_id_d">Введите ID:</label>
             <input type="text" id="course_id_d" name="course_id">
             <button type="submit">Удалить</button>
@@ -56,18 +63,14 @@
     </div>
 </div>
 
-<footer th:insert="~{blocks/footer :: footer}"></footer>
 </body>
 </html>
 <style>
 
-@font-face{
-font-family: 'Montserrat-SemiBold';
-src: url('font/Montserrat-SemiBold.ttf');
-}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
 
 body {
-        font-family: 'Montserrat-SemiBold', sans-serif;
+        font-family: 'Montserrat', sans-serif;
         background-color: #f4f4f4;
         margin: 0;
         padding: 0;
