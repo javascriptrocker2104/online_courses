@@ -19,6 +19,24 @@
         }
     </script>
 
+    <script>
+        function redirectToCourseDelete() {
+            window.location.href = "admin/deletecourse";
+        }
+    </script>
+
+    <script>
+        function redirectToUserBlock() {
+            window.location.href = "admin/blockuser";
+        }
+    </script>
+
+    <script>
+        function redirectToUserDelete() {
+            window.location.href = "admin/deleteuser";
+        }
+    </script>
+
 </head>
 <body>
 
@@ -26,24 +44,18 @@
 <div class="container">
     <div class="left-container">
         <h2>Пользователи</h2>
-        <p>Зарегистрировано пользователей:</p>
+
         <p>БЛОКИРОВКА</p>
-        <form action="/admin/blockuser" method="POST">
-            <label for="user_id_b">Введите ID:</label>
-            <input type="text" id="user_id_b" name="user_id">
-            <button type="submit">Заблокировать</button>
-        </form>
+        <button onclick="redirectToUserBlock()">Заблокировать</button>
+
         <p>УДАЛЕНИЕ</p>
-        <form action="/admin/deleteuser" method="POST">
-            <label for="user_id_d">Введите ID:</label>
-            <input type="text" id="user_id_d" name="user_id">
-            <button type="submit">Удалить</button>
-        </form>
+        <button onclick="redirectToUserDelete()">Удалить</button>
 
     </div>
     <div class="right-container">
         <h2>Курсы</h2>
-        <p>Всего курсов:</p>
+
+        <p>ДОБАВЛЕНИЕ</p>
         <button onclick="redirectToCourseAdd()">Добавить курс</button>
 
         <!-- <form action="/admin/course/change" th:object="${courseRequest}" method="patch">
@@ -54,11 +66,7 @@
         <button onclick="redirectToCourseBlock()">Заблокировать</button>
 
         <p>УДАЛЕНИЕ</p>
-        <form th:action="@{/admin/deletecourse}" method="POST">
-            <label for="course_id_d">Введите ID:</label>
-            <input type="text" id="course_id_d" name="course_id">
-            <button type="submit">Удалить</button>
-        </form>
+        <button onclick="redirectToCourseDelete()">Удалить</button>
 
     </div>
 </div>
