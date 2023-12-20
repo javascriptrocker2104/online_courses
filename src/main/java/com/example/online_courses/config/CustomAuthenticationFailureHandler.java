@@ -40,6 +40,11 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 
         user.setAttempts(failedAttempts);
         userRepository.save(user);
+
+        String redirectUrl = "/login?error";
+
+        // Перенаправление на указанную страницу
+        response.sendRedirect(request.getContextPath() + redirectUrl);
     }
 
 }
