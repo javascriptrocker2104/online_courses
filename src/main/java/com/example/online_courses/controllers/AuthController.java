@@ -4,6 +4,7 @@ import com.example.online_courses.dto.UserData;
 import com.example.online_courses.exceptions.PasswordIsWrong;
 import com.example.online_courses.exceptions.UserAlreadyExistException;
 import com.example.online_courses.models.Content;
+import com.example.online_courses.models.Course;
 import com.example.online_courses.models.User;
 import com.example.online_courses.repositories.UserRepository;
 import com.example.online_courses.service.RecaptchaService;
@@ -15,6 +16,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -82,18 +84,22 @@ public class AuthController {
         return "redirect:/login";
     }
 
-    @RequestMapping(value = "/User/{id}/hide", method = RequestMethod.PUT)
-    public ResponseEntity<String> hideUser(@PathVariable("id") UUID id) {
+    @PostMapping(value = "/admin/blockuser")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String hideUser(@RequestParam(name="name", required=false) String email) {
 
-        User user = userRepository.findById(id).orElse(null);
-
-        if (user == null) {
-            return ResponseEntity.notFound().build();
-        }
+        User user = userRepository.findByEmail(email);
 
         user.setBlock(true);
         userRepository.save(user);
 
-        return ResponseEntity.ok().build();
+        return "redirect:/admin";
     }
+
+    @GetMapping("/admin/blockuser")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String viewUserBlock() {
+        return "blockuser";
+    }
+
 }

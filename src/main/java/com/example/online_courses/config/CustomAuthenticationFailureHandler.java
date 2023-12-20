@@ -45,6 +45,7 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 
         // Перенаправление на указанную страницу
         response.sendRedirect(request.getContextPath() + redirectUrl);
+
     }
 
 }

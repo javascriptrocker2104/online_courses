@@ -121,7 +121,7 @@ public class CourseController {
     //}
 
     @DeleteMapping("/deletecourse")
-    //@PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity deleteCourse(@RequestBody String course_id) {
         courseService.deleteCourse(course_id);
         return ResponseEntity.ok()
@@ -129,22 +129,20 @@ public class CourseController {
     }
 
 
-    @RequestMapping(value = "/admin/blockcourse", method = RequestMethod.PUT)
-    public ResponseEntity<String> hideCourse(@PathVariable("name") String name) {
+    @PostMapping(value = "/admin/blockcourse")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String hideCourse(@RequestParam(name="name", required=false) String name) {
 
         Course course = courseRepository.findByName(name).orElse(null);
-
-        if (course == null) {
-            return ResponseEntity.notFound().build();
-        }
 
         course.setBlock(true);
         courseRepository.save(course);
 
-        return ResponseEntity.ok().build();
+        return "redirect:/admin";
     }
 
     @GetMapping("/admin/blockcourse")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String viewCourseBlock() {
         return "blockcourse";
     }
