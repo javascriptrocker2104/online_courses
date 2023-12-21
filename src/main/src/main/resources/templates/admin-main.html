@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <title>Панель админа</title>
+    <script>
+        function redirectToCourseAdd() {
+            window.location.href = "course/add";
+        }
+    </script>
+
+    <script>
+        function redirectToCourseBlock() {
+            window.location.href = "admin/blockcourse";
+        }
+    </script>
+
+    <script>
+        function redirectToCourseDelete() {
+            window.location.href = "admin/deletecourse";
+        }
+    </script>
+
+    <script>
+        function redirectToUserBlock() {
+            window.location.href = "admin/blockuser";
+        }
+    </script>
+
+    <script>
+        function redirectToUserDelete() {
+            window.location.href = "admin/deleteuser";
+        }
+    </script>
+
+</head>
+<body>
+
+
+<div class="container">
+    <div class="left-container">
+        <h2>Пользователи</h2>
+
+        <p>БЛОКИРОВКА</p>
+        <button onclick="redirectToUserBlock()">Заблокировать</button>
+
+        <p>УДАЛЕНИЕ</p>
+        <button onclick="redirectToUserDelete()">Удалить</button>
+
+    </div>
+    <div class="right-container">
+        <h2>Курсы</h2>
+
+        <p>ДОБАВЛЕНИЕ</p>
+        <button onclick="redirectToCourseAdd()">Добавить курс</button>
+
+        <!-- <form action="/admin/course/change" th:object="${courseRequest}" method="patch">
+        <button type="submit">Изменить курс</button>
+        </form> -->
+
+        <p>БЛОКИРОВКА</p>
+        <button onclick="redirectToCourseBlock()">Заблокировать</button>
+
+        <p>УДАЛЕНИЕ</p>
+        <button onclick="redirectToCourseDelete()">Удалить</button>
+
+    </div>
+</div>
+
+</body>
+</html>
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+body {
+        font-family: 'Montserrat', sans-serif;
+        background-color: #f4f4f4;
+        margin: 0;
+        padding: 0;
+    }
+
+.container {
+      display: flex;
+      height: 100vh;
+    }
+
+.left-container, .right-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+.left-container {
+      background-color: #f0f0f0;
+    }
+
+.right-container {
+      background-color: #ffffff;
+    }
+
+.container h2 {
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+.container p {
+      margin-bottom: 20px;
+    }
+
+.container button {
+      margin-bottom: 10px;
+    }
+
+</style>
