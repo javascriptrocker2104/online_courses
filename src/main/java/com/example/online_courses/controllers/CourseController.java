@@ -120,13 +120,23 @@ public class CourseController {
     //    return ResponseEntity.ok(courseService.updateCourse(course));
     //}
 
-    @DeleteMapping("/deletecourse")
+   
+    @PostMapping("/admin/deletecourse")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity deleteCourse(@RequestBody String course_id) {
+    public String deleteCourse(@RequestParam(name="name", required=false) String name) {
+        Course course = courseRepository.findByName(name).orElse(null);
+        UUID course_id = course.getCourse_id();
+        course.getContents().clear();
         courseService.deleteCourse(course_id);
-        return ResponseEntity.ok()
-                .body(format("Course with id= %s deleted", course_id));
+        return "redirect:/admin";
     }
+
+    @GetMapping("/admin/deletecourse")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String viewCourseDelete() {
+        return "deletecourse";
+    }
+
 
 
     @PostMapping(value = "/admin/blockcourse")
