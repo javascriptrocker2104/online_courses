@@ -3,6 +3,7 @@ package com.example.online_courses.controllers;
 import com.example.online_courses.dto.UserData;
 import com.example.online_courses.exceptions.PasswordIsWrong;
 import com.example.online_courses.exceptions.UserAlreadyExistException;
+import com.example.online_courses.exceptions.UserAlreadyExistException2;
 import com.example.online_courses.models.Content;
 import com.example.online_courses.models.Course;
 import com.example.online_courses.models.User;
@@ -25,6 +26,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+
+import static com.example.online_courses.service.DefaultUserService.isValidPassword;
 
 
 @Controller
@@ -75,7 +78,13 @@ public class AuthController {
             return "registration";
         }
         try {
-            userService.register(userData);
+            if (isValidPassword(userData.getPassword()))
+                userService.register(userData);
+            else {
+                bindingResult.rejectValue("password", "userData.password","The password does not work, please create a different one.");
+                model.addAttribute("registration", userData);
+                return "registration";
+            }
         }catch (UserAlreadyExistException e){
             bindingResult.rejectValue("email", "userData.email","An account already exists for this email.");
             model.addAttribute("registration", userData);

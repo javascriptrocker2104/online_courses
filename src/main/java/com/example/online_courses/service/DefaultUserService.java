@@ -13,6 +13,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Service("userService")
@@ -38,6 +40,21 @@ public class DefaultUserService implements UserService {
             userEntity.setAttempts(0);
             userRepository.save(userEntity);
         }
+    }
+    public static boolean
+    isValidPassword(String password)
+    {
+        String regex = "^(?=.*[0-9])"
+                + "(?=.*[a-z])(?=.*[A-Z])"
+                + "(?=\\S+$).{7,20}$";
+
+        Pattern p = Pattern.compile(regex);
+
+        if (password == null) {
+            return false;
+        }
+        Matcher m = p.matcher(password);
+        return m.matches();
     }
 
     @Override
