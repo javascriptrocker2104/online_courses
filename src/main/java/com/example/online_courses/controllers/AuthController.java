@@ -93,7 +93,7 @@ public class AuthController {
         return "redirect:/login";
     }
 
-    @PostMapping(value = "/admin/blockuser")
+     @PostMapping(value = "/admin/blockuser")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String hideUser(@RequestParam(name="name", required=false) String email) {
 
@@ -110,5 +110,23 @@ public class AuthController {
     public String viewUserBlock() {
         return "blockuser";
     }
+
+
+    @PostMapping("/admin/deleteuser")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String deleteUser(@RequestParam(name="name", required=false) String email) {
+        User user = userRepository.findByEmail(email);
+        UUID user_id = user.getId();
+        user.getRoles().clear();
+        userRepository.deleteById(user_id);
+        return "redirect:/admin";
+    }
+
+    @GetMapping("/admin/deleteuser")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String viewUserDelete() {
+        return "deleteuser";
+    }
+
 
 }
