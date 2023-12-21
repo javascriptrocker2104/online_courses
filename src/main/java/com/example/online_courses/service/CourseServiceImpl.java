@@ -72,8 +72,8 @@ public class CourseServiceImpl implements CourseService {
         return mapToCourseDto(courseRepository.save(course));
     }
     @Override
-    public void deleteCourse(String courseId) {
-        courseRepository.deleteById(UUID.fromString(courseId));
+    public void deleteCourse(UUID courseId) {
+        courseRepository.deleteById(courseId);
     }
 
     @Transactional
