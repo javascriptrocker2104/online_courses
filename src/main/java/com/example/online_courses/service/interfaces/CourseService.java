@@ -19,7 +19,7 @@ public interface CourseService {
 
     CourseDto updateCourse(Course course);
 
-    void deleteCourse(String courseId);
+    void deleteCourse(UUID courseId);
 
     void assignUserToCourse(UUID id, UUID course_id);
 
