@@ -37,6 +37,24 @@
         }
     </script>
 
+    <script>
+        function redirectToContentAdd() {
+            window.location.href = "content/add";
+        }
+    </script>
+
+    <script>
+        function redirectToContentBlock() {
+            window.location.href = "admin/blockcontent";
+        }
+    </script>
+
+    <script>
+        function redirectToContentDelete() {
+            window.location.href = "admin/deletecontent";
+        }
+    </script>
+
 </head>
 <body>
 
@@ -52,15 +70,25 @@
         <button onclick="redirectToUserDelete()">Удалить</button>
 
     </div>
+    <div class="middle-container">
+        <h2>Контент</h2>
+
+        <p>ДОБАВЛЕНИЕ</p>
+        <button onclick="redirectToContentAdd()">Добавить</button>
+
+        <p>БЛОКИРОВКА</p>
+        <button onclick="redirectToContentBlock()">Заблокировать</button>
+
+        <p>УДАЛЕНИЕ</p>
+        <button onclick="redirectToContentDelete()">Удалить</button>
+
+    </div>
+
     <div class="right-container">
         <h2>Курсы</h2>
 
         <p>ДОБАВЛЕНИЕ</p>
         <button onclick="redirectToCourseAdd()">Добавить</button>
-
-        <!-- <form action="/admin/course/change" th:object="${courseRequest}" method="patch">
-        <button type="submit">Изменить курс</button>
-        </form> -->
 
         <p>БЛОКИРОВКА</p>
         <button onclick="redirectToCourseBlock()">Заблокировать</button>
@@ -89,13 +117,13 @@ body {
       height: 100vh;
     }
 
-.left-container, .right-container {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-    }
+.left-container, .middle-container, .right-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
 .left-container {
       background-color: #f0f0f0;

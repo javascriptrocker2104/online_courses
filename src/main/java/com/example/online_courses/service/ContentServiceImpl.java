@@ -2,9 +2,11 @@ package com.example.online_courses.service;
 
 
 import com.example.online_courses.dto.ContentDto;
+import com.example.online_courses.dto.CourseDto;
 import com.example.online_courses.dto.CreateContentRequest;
 import com.example.online_courses.exceptions.ContentAlreadyExistException;
 import com.example.online_courses.exceptions.ContentNotFoundException;
+import com.example.online_courses.exceptions.CourseNotFoundException;
 import com.example.online_courses.models.Content;
 import com.example.online_courses.models.Course;
 import com.example.online_courses.models.User;
@@ -12,6 +14,7 @@ import com.example.online_courses.repositories.ContentRepository;
 import com.example.online_courses.repositories.CourseRepository;
 import com.example.online_courses.service.interfaces.ContentService;
 import com.example.online_courses.util.ContentMappingUtil;
+import com.example.online_courses.util.CourseMappingUtil;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

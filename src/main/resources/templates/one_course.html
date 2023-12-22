@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html  xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Course Details</title>
+    <title>Детали курса</title>
 </head>
 <body>
 
@@ -12,8 +12,21 @@
 <div th:if="${course != null}">
     <h2 th:text="${course.name}"></h2>
     <p th:text="${course.description}"></p>
-    <!-- Добавьте другие свойства курса по мере необходимости -->
+
+    <div th:if="${courseContents != null}">
+        <ul class="course-content-list">
+            <li th:each="content : ${courseContents}">
+                <h3 th:text="${content.name}">Название контента</h3>
+                <p>Тип: <span th:text="${content.type}">Тип контента</span></p>
+                <p th:text="${content.info}">Информация о контенте</p>
+            </li>
+        </ul>
+    </div>
+
 </div>
+
+
+
 
 <div th:if="${course == null}">
     <p>Course not found</p>
@@ -21,3 +34,17 @@
 
 </body>
 </html>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+body {
+        font-family: 'Montserrat', sans-serif;
+    }
+
+.course-content-list {
+    padding-left: 20px; /* Отступ слева для элементов списка */
+}
+
+</style>

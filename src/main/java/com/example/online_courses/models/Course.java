@@ -40,9 +40,6 @@ public class Course {
         this.block = false;
     }
 
-    //@ManyToMany(mappedBy="courses", fetch = FetchType.EAGER)
-    //private Set<User> user;
-
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Content> contents;
 

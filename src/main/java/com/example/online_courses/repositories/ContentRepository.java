@@ -2,7 +2,6 @@ package com.example.online_courses.repositories;
 
 
 import com.example.online_courses.models.Content;
-import com.example.online_courses.models.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -18,4 +17,5 @@ public interface ContentRepository extends JpaRepository<Content, UUID> {
     @Query(value = "SELECT ct FROM Content ct WHERE ct.block = false")
     List<Content> getAll();
 
+    Optional<Content> findContentByName(String name);
 }

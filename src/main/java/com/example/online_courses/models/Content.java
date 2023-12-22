@@ -25,11 +25,10 @@ public class Content {
     private String type;
     private boolean block;
 
-
-    //@ManyToOne(fetch = FetchType.EAGER)
-    //@JoinColumn(name = "course_id")
-    //private Course course;
-
-
-
+    public Content(String name, String info, String type) {
+        this.name = name;
+        this.info = info;
+        this.type = type;
+        this.block = false;
+    }
 }

@@ -36,89 +36,35 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-    // Выводит html добавление курса
     @GetMapping("/course/add")
-    public String viewCourseAdd(Model model) {
-        model.addAttribute("courseRequest", new CreateCourseRequest());
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public String viewCourseAdd() {
         return "course-add";
     }
-    // Сохраняет введенные данные в базу данных
-    /*
-    @PostMapping("/course/add")
-    public String coursePostAdd(@RequestParam String name, @RequestParam String description, @RequestParam LocalDateTime start_time, @RequestParam LocalDateTime end_time) {
-        Course course = new Course(name, description, start_time, end_time);
-        courseRepository.save(course);
-        return "redirect:/";
-        }
-
 
     @PostMapping("/course/add")
-    public String courseAdd(final @Valid CreateCourseRequest courseRequest, final BindingResult bindingResult, final Model model){
-        if(bindingResult.hasErrors()){
-            model.addAttribute("courseRequest", courseRequest);
-            return "course-add";
-        }
-        try {
-            courseService.createCourse(courseRequest);
-        }catch (CourseAlreadyExistException e){
-            bindingResult.rejectValue("name", "courseRequest.name","Курс с таким именем уже существует.");
-            model.addAttribute("courseRequest", courseRequest);
-            return "course-add";
-        }
-        return "redirect:/";
-    }
-*/
-    @PostMapping("/course/add")
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String courseAdd(@RequestParam(name="name", required=false) String name,
                             @RequestParam(name="description", required=false) String description,
                             @RequestParam(name="start_time", required=false) LocalDateTime start_time,
                             @RequestParam(name="end_time", required=false)LocalDateTime end_time){
 
-        Course course = new Course(name, description,start_time,end_time);
+        Course course = new Course(name, description, start_time, end_time);
         courseRepository.save(course);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
     @GetMapping("/course/all")
-    //@PreAuthorize("hasAuthority('READ_PRIVILEGE')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<CourseDto>> getAllCourses() {
         return ResponseEntity.ok(courseService.getAllCourses());
     }
 
     @GetMapping("/course/find/{name}")
-    //@PreAuthorize("hasAuthority('READ_PRIVILEGE')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<CourseDto> getCourseByName(@PathVariable String name) throws CourseNotFoundException {
         return ResponseEntity.ok(courseService.getCourseByName(name));
     }
-
-
-
-    /*
-    @PostMapping("/admin/course")
-    @PreAuthorize("hasAuthority('WRITE_PRIVILEGE')")
-    public ResponseEntity<CourseDto> createCourse(@RequestBody CreateCourseRequest course) throws CourseAlreadyExistException {
-        return ResponseEntity.ok(courseService.createCourse(course));
-    }
-
-     */
-
-    // Нужно сначала запросить имя курса, потом вывести html как курс адд, только потом сохранить...
-    /*
-    @PatchMapping("/admin/course/change")
-    public String courseChange(final @Valid CreateCourseRequest courseRequest, final BindingResult bindingResult, final Model model){
-        if(bindingResult.hasErrors()){
-            model.addAttribute("courseRequest", courseRequest);
-            return "course-add";
-        }
-        courseService.updateCourse(courseRequest);
-        return "redirect:/";
-    }
-    */
-    //@PatchMapping("/admin/course/change")
-    //public ResponseEntity<CourseDto> updateCourse(@RequestBody Course course) {
-    //    return ResponseEntity.ok(courseService.updateCourse(course));
-    //}
 
    
     @PostMapping("/admin/deletecourse")

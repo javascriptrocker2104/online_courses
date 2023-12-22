@@ -1,9 +1,14 @@
 package com.example.online_courses.controllers;
 
+import com.example.online_courses.dto.ContentDto;
 import com.example.online_courses.dto.CourseDto;
+import com.example.online_courses.exceptions.ContentNotFoundException;
 import com.example.online_courses.exceptions.CourseNotFoundException;
 import com.example.online_courses.exceptions.CourseNotFoundExceptionByID;
+import com.example.online_courses.models.Content;
 import com.example.online_courses.models.Course;
+import com.example.online_courses.repositories.CourseRepository;
+import com.example.online_courses.service.interfaces.ContentService;
 import com.example.online_courses.service.interfaces.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import java.util.logging.Logger;
 
@@ -23,6 +29,10 @@ public class MainController {
 
     @Autowired
     CourseService courseService;
+    @Autowired
+    CourseRepository courseRepository;
+    @Autowired
+    ContentService contentService;
 
     /*@GetMapping("/")
     public String home(Model model) {
@@ -37,9 +47,11 @@ public class MainController {
     }
 
     @GetMapping("/courseDetails/{name}")
-    public String courseDetails(@PathVariable String name, Model model) throws CourseNotFoundException {
-        CourseDto course = courseService.getCourseByName(name);
+    public String courseDetails(@PathVariable String name, Model model)  {
+        Course course = courseRepository.findByName(name).orElse(null);
+        Set<Content> courseContents =  course.getContents();
         model.addAttribute("course", course);
+        model.addAttribute("courseContents", courseContents);
         return "one_course";
     }
     private static final Logger LOGGER = Logger.getLogger(CourseService.class.getName());
