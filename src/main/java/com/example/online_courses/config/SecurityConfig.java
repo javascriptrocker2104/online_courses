@@ -36,7 +36,7 @@ public class SecurityConfig {
                         //.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()))
                 .authorizeHttpRequests((authz) -> authz
                         //.antMatchers("/admin/**").hasRole("ADMIN")
-                        .requestMatchers( "/login", "/").permitAll()
+                        .requestMatchers( "/login", "/","registration").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
