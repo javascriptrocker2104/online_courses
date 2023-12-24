@@ -62,6 +62,7 @@ public class AuthController {
                     .body(response);
         }
         userRepository.save(user);
+        System.out.println("User- is logged in");
         return ResponseEntity.ok().build();
     }
 
@@ -90,6 +91,7 @@ public class AuthController {
             model.addAttribute("registration", userData);
             return "registration";
         }
+        System.out.println("User trying to register");
         return "redirect:/login";
     }
 
@@ -101,7 +103,7 @@ public class AuthController {
 
         user.setBlock(true);
         userRepository.save(user);
-
+         System.out.println("User has been blocked");
         return "redirect:/admin";
     }
 
@@ -119,6 +121,7 @@ public class AuthController {
         UUID user_id = user.getId();
         user.getRoles().clear();
         userRepository.deleteById(user_id);
+        System.out.println("User" + user_id + " with deleted");
         return "redirect:/admin";
     }
 
@@ -130,3 +133,4 @@ public class AuthController {
 
 
 }
+

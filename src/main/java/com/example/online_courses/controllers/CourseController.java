@@ -51,6 +51,8 @@ public class CourseController {
 
         Course course = new Course(name, description, start_time, end_time);
         courseRepository.save(course);
+
+        System.out.println("The user views all courses");
         return "redirect:/admin";
     }
 
@@ -74,6 +76,8 @@ public class CourseController {
         UUID course_id = course.getCourse_id();
         course.getContents().clear();
         courseService.deleteCourse(course_id);
+
+        System.out.println("Admin deleted the course"+ course_id);
         return "redirect:/admin";
     }
 
@@ -94,6 +98,7 @@ public class CourseController {
         course.setBlock(true);
         courseRepository.save(course);
 
+        System.out.println("Admin blocked the course"+ course);
         return "redirect:/admin";
     }
 

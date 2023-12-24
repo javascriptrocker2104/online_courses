@@ -52,6 +52,7 @@ public class MainController {
         Set<Content> courseContents =  course.getContents();
         model.addAttribute("course", course);
         model.addAttribute("courseContents", courseContents);
+        System.out.println("The user is viewing a specific course"+ course);
         return "one_course";
     }
     private static final Logger LOGGER = Logger.getLogger(CourseService.class.getName());

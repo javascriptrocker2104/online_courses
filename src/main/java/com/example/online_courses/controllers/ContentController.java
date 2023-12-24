@@ -33,6 +33,7 @@ public class ContentController {
     @GetMapping("/content/{id}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ContentDto> getContentById(@PathVariable UUID id) throws ContentNotFoundException {
+        System.out.println("user watches content");
         return ResponseEntity.ok(contentService.getContentById(id));
     }
     @GetMapping("/content/all")
@@ -48,6 +49,7 @@ public class ContentController {
         Content content = contentRepository.findContentByName(name).orElse(null);
         UUID content_id = content.getContent_id();
         contentService.deleteContent(content_id);
+        System.out.println("Content with id " + content_id + " has been removed");
         return "redirect:/admin";
     }
 
@@ -63,6 +65,8 @@ public class ContentController {
         Content content = contentRepository.findContentByName(name).orElse(null);
         content.setBlock(true);
         contentRepository.save(content);
+
+        System.out.println("The content has been locked");
         return "redirect:/admin";
     }
 
@@ -87,6 +91,7 @@ public class ContentController {
 
         Content content = new Content(name, info, type);
         contentRepository.save(content);
+        System.out.println("user views all content");
         return "redirect:/admin";
     }
 }

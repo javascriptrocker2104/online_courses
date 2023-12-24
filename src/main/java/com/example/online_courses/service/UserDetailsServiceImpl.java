@@ -40,6 +40,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                     getAuthorities(Arrays.asList(
                             roleRepository.findByName("ROLE_USER"))));
         }
+        System.out.println("User- is logged in");
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(), user.getPassword(), true, true, true,
                 !user.isBlock(), getAuthorities(user.getRoles()));
